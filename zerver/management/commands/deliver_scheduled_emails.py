@@ -48,7 +48,7 @@ Usage: ./manage.py deliver_scheduled_emails
                 email_jobs_to_deliver = (
                     ScheduledEmail.objects.filter(scheduled_timestamp__lte=timezone_now())
                     .prefetch_related("users")
-                    .select_for_update()
+                    .select_for_update()[:1]
                 )
                 if email_jobs_to_deliver:
                     found_rows = True
